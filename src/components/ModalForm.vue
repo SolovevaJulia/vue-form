@@ -1,5 +1,5 @@
 <template>
-  <VueFinalModal v-model="internalValue">
+  <VueFinalModal v-model="internalValue" @click="handleOverlayClick">
     <div class="modal-content">
       <h2>Заполните заявку, чтобы стать резидентом</h2>
 
@@ -105,6 +105,12 @@ watch(
 const closeModal = () => {
   internalValue.value = false;
   emit('update:modelValue', false);
+};
+
+const handleOverlayClick = (event) => {
+  if (!event.target.closest('.modal-content')) {
+    closeModal();
+  }
 };
 
 const { handleSubmit } = useForm({
